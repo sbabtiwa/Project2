@@ -28,7 +28,7 @@ def parse_counted_words(s):
 
 #re.findall(r'(\d+)+\s(A-Za-z)+,s)
 #r'([0-9]+) ([^A-z]?[A-z]+\b)
-print (parse_counted_words("!!!!! 72 and 76 calendars"))
+#print (parse_counted_words("!!!!! 72 and 76 calendars"))
   
 
 
@@ -46,19 +46,32 @@ print (parse_counted_words("!!!!! 72 and 76 calendars"))
 
 ## (a) Write Python code to determine how many of these paths identify FILES, not directories. Save that number in the variable file_paths_num.
 fileref = open("computer_paths.txt", "r")
-list_files = []
-for line in fileref: 
-    line = line.rstrip()
-    x = re.findall(r"")
+data = fileref.read()
+#print(data)
+
+#for line in data: 
+    #line = line.rstrip()
+list_files = re.findall(r"\.[a-z]+", data)
+    #list_files.append(x)
+file_paths_num = len(list_files)
+
+
 
 
 
 ## (b) Write Python code to determine how many of these paths are FULL paths, not relative paths. Save that number in the variable full_paths_num.
+list_files_b = re.findall(r"\/Users|~", data)
+full_paths_num = len(list_files_b)
+print(full_paths_num)
 
 ## (c) Write Python code to determine how many of these paths describe a Python file saved inside a folder called SI206. Save that number in the variable python_course_paths.
+list_files_c = re.findall(r"\SI206\/(\w)+.py", data)
+python_course_paths = len(list_files_c)
 
 ## (d) Write Python code to determine how many of these paths describe a Microsoft file (a file that EITHER ends with .docx OR .xlsx, but nothing else counts) where the file name ends in a digit. Save that total in the variable microsoft_files_num.
-
+list_files_d = re.findall(r"[0-9](.docx|.xlsx)",data)
+microsoft_files_num = len(list_files_d)
+#print(microsoft_files_num)
 
 
 
