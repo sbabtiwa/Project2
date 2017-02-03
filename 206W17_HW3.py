@@ -4,7 +4,7 @@ import re
 ## SI 206 - W17 - HW3
 ## COMMENT WITH:
 ## Your section day/time: Fridays 1-2 PM
-## Any names of people you worked with on this assignment: Amelia, 
+## Any names of people you worked with on this assignment: Amelia, Gillian, Yuting
 
 #####################
 
