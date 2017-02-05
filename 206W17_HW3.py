@@ -20,14 +20,11 @@ import re
 
 ## Write code to define your 
 def parse_counted_words(s):
-    find_count_word = re.findall(r'([0-9]+)\s([^A-z]?[A-z]+\b)', s)
+    find_count_word = re.findall(r"([0-9]+)\s([^A-z]?[A-z]+\b)", s)
     if len(find_count_word) >=1: 
         return find_count_word[-1]
     else: 
         return None
-
-
-  
 
 
 
