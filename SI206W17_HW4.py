@@ -57,15 +57,16 @@ soup = BeautifulSoup(text_from_file, "html.parser")
 #story_heading = soup.find_all(class_ = "story-heading")
 #print(story_heading.contents[0])
 print("------------JUST HEADLINES----------------------------------------------------")
-nytimes_headlines = []
+all_headlines = []
 for story_heading in soup.find_all(class_ = "story-heading"): 
 	if story_heading.a:
-		 nytimes_headlines.append(story_heading.a.text.replace("/n", " ").strip())
+		 all_headlines.append(story_heading.a.text.replace("/n", " ").strip())
 	else:
 		story_heading.contents[0].strip()
 #story_heading = soup.find_all(class_= "story-heading")
 #print(story_heading.a.text)
-print(nytimes_headlines[:10])
+nytimes_headlines = all_headlines[:10]
+print(nytimes_headlines)
 
 #####################
 
@@ -89,7 +90,7 @@ htmldoc = response.text
 
 soup = BeautifulSoup(htmldoc,"html.parser")
 people = soup.find_all("div",{"class":"views-row"})
-print(people)
+#print(people)
 umsi_titles = {}
 for element in people: 
 	names = element.find(property= "dc:title").text
