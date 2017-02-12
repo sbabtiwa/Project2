@@ -15,7 +15,6 @@ from bs4 import BeautifulSoup
 ## Write the Python code to do so here.
 
 nytimes_text = requests.get("http://www.nytimes.com").text 
-#print(nytimes_text)
 fileref = open("nytimes_data.html", "w")
 fileref.write(nytimes_text)
 fileref.close()
@@ -48,23 +47,12 @@ fileref.close()
 fileref = open("nytimes_data.html", "r")
 text_from_file = fileref.read()
 soup = BeautifulSoup(text_from_file, "html.parser")
-#print(soup.prettify())
-#print("----------------------------------------------------------STORY HEADING TAGS")
-#print(soup.find_all(class_= "story-heading"))
-#for story_heading in soup.find_all(class_= "story-heading"): 
-	#print(story_heading)
-#print("-------testing this random thing")
-#story_heading = soup.find_all(class_ = "story-heading")
-#print(story_heading.contents[0])
-print("------------JUST HEADLINES----------------------------------------------------")
 all_headlines = []
 for story_heading in soup.find_all(class_ = "story-heading"): 
 	if story_heading.a:
 		 all_headlines.append(story_heading.a.text.replace("/n", " ").strip())
 	else:
 		story_heading.contents[0].strip()
-#story_heading = soup.find_all(class_= "story-heading")
-#print(story_heading.a.text)
 nytimes_headlines = all_headlines[:10]
 print(nytimes_headlines)
 
@@ -90,13 +78,12 @@ htmldoc = response.text
 
 soup = BeautifulSoup(htmldoc,"html.parser")
 people = soup.find_all("div",{"class":"views-row"})
-#print(people)
 umsi_titles = {}
 for element in people: 
 	names = element.find(property= "dc:title").text
 	positions = element.find(class_= "field field-name-field-person-titles field-type-text field-label-hidden").text
 	umsi_titles[names] = positions 
-print(umsi_titles)
+
 
 
 
@@ -124,7 +111,7 @@ class HW4_Part2(unittest.TestCase):
 	def test_first_last_elem(self):
 		self.assertEqual(type(nytimes_headlines[0]),type(""), "Testing that the first type in the nytimes_headlines list is a string")
 		self.assertEqual(type(nytimes_headlines[-1]),type(""), "Testing that the last type in the nytimes_headlines list is a string")
-	def length_of_ten(self):
+	def test_length_of_ten(self):
 		self.assertEqual(len(nytimes_headlines),10, "Testing that there are ten headlines in the list")
 
 class HW4_Part3(unittest.TestCase):
