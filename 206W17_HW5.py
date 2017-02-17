@@ -13,22 +13,6 @@ import twitter_info
 
 ## Write code that uses the tweepy library to search for tweets with a phrase of the user's choice (should use the Python input function), and prints out the Tweet text and the created_at value (note that this will be in GMT time) of the first THREE tweets with at least 1 blank line in between each of them, e.g.
 
-#def get_tweets_from_user(username): 
-	#unique_identifier = "twitter_{}".format(username) #stringformatting chapter 
-	#see if that username is in the cache diction! 
-	#twitter_results = api.user_timeline(username)
-	#print(type(twitter_results)) # a list
-	#print(type(twitter_results[0]) # dict
-	#print(type(twitter_results[0].keys()))
-	## that makes me think that each dict in the list represents 1 Tweet...
-	#first_tweet = twitter_results[0]
-	#first_tweet_text = first_tweet["text"]
-	#list_tweet_text = []
-	#for each_tweet in twitter_results: 
-		#list_of_text.append(each_tweet["text"])
-	#return list_tweet_text[:3]
-	#return first_tweet_text 
-
 
 ## TEXT: I'm an awesome Python programmer.
 ## CREATED AT: Sat Feb 11 04:28:19 +0000 2017
@@ -87,12 +71,6 @@ def get_tweets_with_phrase_caching(s):
 	else: 
 		print("getting new data from web for", s)
 		tweets_results = api.search(q = s)
-		print(type(tweets_results))
-		print(tweets_results.keys())
-		print(type(tweets_results["statuses"]))
-		#print(type(tweets_results["statuses"][0]))
-		one_tweet = tweets_results["statuses"][0]
-		print(one_tweet.keys())
 		desired_tweets = tweets_results["statuses"]
 		CACHE_TW_DICT[unique_identifier] = desired_tweets
 		fileref = open(CACHE_FNAME, 'w')
@@ -100,44 +78,17 @@ def get_tweets_with_phrase_caching(s):
 		fileref.close()
 	list_tweet_text = []
 	for each_tweet in desired_tweets: 
-		#print(each_tweet["text"])
-		#print(each_tweet["created_at"])
 		list_tweet_text.append("TEXT: " + each_tweet["text"])
 		list_tweet_text.append("CREATED AT: " + each_tweet["created_at"])
 		list_tweet_text.append("\n")
 	return list_tweet_text[:9]
 
 
-#def get_tweets_with_phrase(s): 
-	#tweets_results = api.search(q = s)
-	#print(type(tweets_results))
-	#print(tweets_results.keys())
-	#print(type(tweets_results["statuses"]))
-	#print(type(tweets_results["statuses"][0]))
-	#one_tweet = tweets_results["statuses"][0]
-	#print(one_tweet.keys())
-	#desired_tweets = tweets_results["statuses"]
-	#list_tweet_text = []
-	#for each_tweet in desired_tweets: 
-		#print(each_tweet["text"])
-		#print(each_tweet["created_at"])
-		#list_tweet_text.append("TEXT: " + each_tweet["text"])
-		#list_tweet_text.append("CREATED AT: " + each_tweet["created_at"])
-
-			#print(len(list_tweet_text[:3]))
-	#print(list_tweet_text)
-
-		
-	#for each_tweet in twitter_results: 
-		#list_of_text.append(each_tweet["text"])
-	#return list_tweet_text[:3]
-	#return first_tweet_text 
-
 user_says = input("Enter a phrase")
 tweets_collected_for_user = get_tweets_with_phrase_caching(user_says)
 for tweet in tweets_collected_for_user:
 	print(tweet)
-	#print("\n")
+
 
 
 
