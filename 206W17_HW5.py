@@ -7,7 +7,7 @@ import twitter_info
 ## SI 206 - W17 - HW5
 ## COMMENT WITH:
 ## Your section day/time: Fridays 1 - 2 PM
-## Any names of people you worked with on this assignment:
+## Any names of people you worked with on this assignment: Gillian Shields
 
 ######## 500 points total ########
 
@@ -82,10 +82,10 @@ except:
 def get_tweets_with_phrase_caching(s): 
 	unique_identifier = "twitter_{}".format(s)
 	if unique_identifier in CACHE_TW_DICT: 
-		print("using cached data for", unique_identifier)
+		print("using cached data for", s)
 		desired_tweets = CACHE_TW_DICT[unique_identifier]
 	else: 
-		print("getting new data from web for", unique_identifier)
+		print("getting new data from web for", s)
 		tweets_results = api.search(q = s)
 		print(type(tweets_results))
 		print(tweets_results.keys())
@@ -102,29 +102,30 @@ def get_tweets_with_phrase_caching(s):
 	for each_tweet in desired_tweets: 
 		#print(each_tweet["text"])
 		#print(each_tweet["created_at"])
-		list_tweet_text.append(each_tweet["text"])
-		list_tweet_text.append(each_tweet["created_at"])
-	print (list_tweet_text[:3])
+		list_tweet_text.append("TEXT: " + each_tweet["text"])
+		list_tweet_text.append("CREATED AT: " + each_tweet["created_at"])
+		list_tweet_text.append("\n")
+	return list_tweet_text[:9]
 
 
-def get_tweets_with_phrase(s): 
-	tweets_results = api.search(q = s)
-	print(type(tweets_results))
-	print(tweets_results.keys())
-	print(type(tweets_results["statuses"]))
+#def get_tweets_with_phrase(s): 
+	#tweets_results = api.search(q = s)
+	#print(type(tweets_results))
+	#print(tweets_results.keys())
+	#print(type(tweets_results["statuses"]))
 	#print(type(tweets_results["statuses"][0]))
-	one_tweet = tweets_results["statuses"][0]
-	print(one_tweet.keys())
-	desired_tweets = tweets_results["statuses"]
-	list_tweet_text = []
-	for each_tweet in desired_tweets: 
+	#one_tweet = tweets_results["statuses"][0]
+	#print(one_tweet.keys())
+	#desired_tweets = tweets_results["statuses"]
+	#list_tweet_text = []
+	#for each_tweet in desired_tweets: 
 		#print(each_tweet["text"])
 		#print(each_tweet["created_at"])
-		list_tweet_text.append(each_tweet["text"])
-		list_tweet_text.append(each_tweet["created_at"])
+		#list_tweet_text.append("TEXT: " + each_tweet["text"])
+		#list_tweet_text.append("CREATED AT: " + each_tweet["created_at"])
 
 			#print(len(list_tweet_text[:3]))
-	print(list_tweet_text[:3])
+	#print(list_tweet_text)
 
 		
 	#for each_tweet in twitter_results: 
@@ -132,8 +133,13 @@ def get_tweets_with_phrase(s):
 	#return list_tweet_text[:3]
 	#return first_tweet_text 
 
-#user_says = input()
-get_tweets_with_phrase_caching("umich")
+user_says = input("Enter a phrase")
+tweets_collected_for_user = get_tweets_with_phrase_caching(user_says)
+for tweet in tweets_collected_for_user:
+	print(tweet)
+	#print("\n")
+
+
 
 
 
