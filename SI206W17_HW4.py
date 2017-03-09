@@ -73,8 +73,11 @@ print(nytimes_headlines)
 
 ## Write code to complete this task here. We've gotten you started... note that it'll be difficult to continue if you don't understand what the provided code does!
 
-response = requests.get("https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=All")
+#response = requests.get("https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=All", headers = {"User-Agent": "SI_CLASS"})
+response = requests.get("https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=All&page=0", headers = {"User-Agent": "SI_CLASS"})
+
 htmldoc = response.text
+print (htmldoc)
 
 soup = BeautifulSoup(htmldoc,"html.parser")
 people = soup.find_all("div",{"class":"views-row"})
