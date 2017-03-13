@@ -56,14 +56,10 @@ except:
 ## find_urls("the internet is awesome #worldwideweb") should return [], empty list
 
 def find_urls(s):
-	#urls_list = []
-	find_the_urls = re.findall(r"https?:\/\/[a-z0-9\./]\S+", s)
-	#urls_list.append(find_the_urls)
-	#print(find_the_urls)
+	find_the_urls = re.findall(r"https?:\/\/[A-Za-z0-9]+\.+[A-Za-z0-9]{2,}\S+", s)
 	return find_the_urls
-#find_urls("http://www.google.com is a great site")
 
-print (find_urls("I love looking at websites like http://etsy.com and http://instagram.com and stuff"))
+
 
 
 
@@ -84,17 +80,9 @@ print (find_urls("I love looking at websites like http://etsy.com and http://ins
 
 def get_umsi_data():
 	unique_identifier = "umsi_directory_data"
-	#unique_identifier = "{}".format(s)
 	if unique_identifier in CACHE_DICTION:
-
 		print("Using cached data for UMSI")
 		pass
-
-		#print("using cache data for UMSI")
-		#cached_umsi_dir = CACHE_DICTION[unique_identifier]
-		#print(type(cached_umsi_dir))
-		#return cached_umsi_dir
-		#return CACHE_DICTION[unique_identifier]
 	else:
 		print("Getting new data from web for UMSI")
 		umsi_directory_list = []
@@ -102,40 +90,19 @@ def get_umsi_data():
 			base_url = "https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=All&page=" + str(i)
 			response = requests.get(base_url, headers = {"User-Agent": "SI_CLASS"})
 			umsi_directory_list.append(response.text)
-		#print(umsi_directory_list)
-	#print(base_url)
-	#print("----------------------------")
-	#print(response)
-		#cached_umsi_dir = umsi_directory_list
-		#print("----------------------")
-		#print(cached_umsi_dir)
-	#print(htmldoc)
-		#CACHE_DICTION[unique_identifier] = cached_umsi_dir
 		CACHE_DICTION[unique_identifier] = umsi_directory_list
 		fileref = open(CACHE_FNAME, "w")
 		fileref.write(json.dumps(CACHE_DICTION))
 		fileref.close()
-		#return cached_umsi_dir
-		#return umsi_directory_list
 	return CACHE_DICTION[unique_identifier]
 
 
-#print(get_umsi_data())
 
 
 
 
 ## PART 2 (b) - Create a dictionary saved in a variable umsi_titles 
 ## whose keys are UMSI people's names, and whose associated values are those people's titles, e.g. "PhD student" or "Associate Professor of Information"...
-#fileref = open(CACHE_FNAME, "r")
-#read_file = fileref.read()
-#load_file = json.loads(read_file)
-#print(type(fileref))
-#for i in range(0,12):
-		#base_url = "https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=All&page=" + str(i)
-		#response = requests.get(base_url, headers = {"User-Agent": "SI_CLASS"})
-#umsidata = response.text
-#print(type(umsidata))
 
 umsi_directory_list = get_umsi_data()
 all_people = []
@@ -145,7 +112,6 @@ for i in range(len(umsi_directory_list)):
 	people = soup.find_all("div",{"class": "views-row"})
 	all_people.append(people)
 
-#print(all_people)
 umsi_titles = {}
 
 for i in range(len(all_people)):
@@ -153,7 +119,7 @@ for i in range(len(all_people)):
 		names = person.find(property= "dc:title").text
 		positions = person.find(class_= "field field-name-field-person-titles field-type-text field-label-hidden").text
 		umsi_titles[names] = positions
-#print(len(umsi_titles))
+
 
 
 ## PART 3 (a) - Define a function get_five_tweets
@@ -179,7 +145,6 @@ def get_five_tweets(s):
 		list_5_tweets.append(a_tweet["text"])
 	return list_5_tweets
 
-#print(get_five_tweets("Michigan State University"))
 
 
 
@@ -191,14 +156,14 @@ print(five_tweets)
 
 
 ## PART 3 (c) - Iterate over the five_tweets list, invoke the find_urls function that you defined in Part 1 on each element of the list, and accumulate a new list of each of the total URLs in all five of those tweets in a variable called tweet_urls_found. 
-
 tweet_urls_found = []
 for each_tweet in five_tweets: 
 	list_of_urls_in_tweet = find_urls(each_tweet)
 	for i in range(len(list_of_urls_in_tweet)):
 		tweet_urls_found.append(list_of_urls_in_tweet[i])
-	#tweet_urls_found.append(find_urls(each_tweet))
+
 print(tweet_urls_found)
+
 
 
 
